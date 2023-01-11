@@ -1,17 +1,35 @@
 import React from 'react';
-// import logo from './logo.svg';
-// import './App.css';
-import { getCategories } from './services/api';
+import { Route, Switch } from 'react-router-dom';
+import Home from './components/Home';
+import './App.css';
 
 class App extends React.Component {
-  async componentDidMount() {
-    console.log(await getCategories());
-  }
+  state = {
+    search: '',
+    searchVoid: true,
+  };
 
   render() {
+    const { search, searchVoid } = this.state;
     return (
+
       <div className="App">
-        bode
+        <input
+          type="text"
+          value={ search }
+          onChange={ ({ target: { value } }) => {
+            this.setState({
+              search: value,
+            });
+          } }
+        />
+        {searchVoid && (
+          <span data-testid="home-initial-message">
+            Digite algum termo de pesquisa ou escolha uma categoria.
+          </span>)}
+        <Switch>
+          <Route path="/" component={ Home } />
+        </Switch>
       </div>
     );
   }
