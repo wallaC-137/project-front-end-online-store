@@ -70,6 +70,7 @@ export default class Home extends Component {
               price={ product.price }
               picture={ product.thumbnail }
               key={ index }
+              id={ product.id }
             />
           ))) }
 

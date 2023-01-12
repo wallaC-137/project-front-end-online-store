@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Cart from '../page/Cart';
 import Home from '../page/Home';
+import Product from '../page/Product';
 
 class Rotas extends Component {
   state = {
@@ -15,6 +16,7 @@ class Rotas extends Component {
         <Switch>
           <Route exact path="/" component={ Home } />
           <Route path="/cart" render={ () => <Cart cartVoid={ cartVoid } /> } />
+          <Route path="/product/:id" component={ Product } />
         </Switch>
       </div>
     );
