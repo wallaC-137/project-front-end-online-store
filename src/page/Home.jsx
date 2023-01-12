@@ -66,7 +66,7 @@ export default class Home extends Component {
         {apiEmpty ? <p>Nenhum produto foi encontrado</p> : (productList
           .map((product, index) => (
             <CardProduct
-              name={ product.name }
+              name={ product.title }
               price={ product.price }
               picture={ product.thumbnail }
               key={ index }
