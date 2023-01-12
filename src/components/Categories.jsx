@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getCategories, getItensFromCategories } from '../services/api';
+import CardProduct from './CardProduct';
 
 class Categories extends Component {
   state = {
@@ -38,11 +39,13 @@ class Categories extends Component {
           </div>
         ))}
         {itensCategory.map((item) => (
-          <div key={ item.id } data-testid="product">
-            <p>{item.title}</p>
-            <img src={ item.thumbnail } alt="oi" />
-            <p>{item.price}</p>
-          </div>
+          <CardProduct
+            name={ item.title }
+            price={ item.price }
+            picture={ item.thumbnail }
+            key={ item.id }
+            id={ item.id }
+          />
         ))}
       </div>
 
