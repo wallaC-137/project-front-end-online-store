@@ -20,8 +20,22 @@ class Product extends Component {
     console.log(data);
   };
 
+  handleOnClick = (name, price) => {
+    if (localStorage.getItem('listCart')) {
+      const oldItem = JSON.parse(localStorage.getItem('listCart'));
+      const newItem = [...oldItem, { name, price }];
+      localStorage.setItem(
+        'listCart',
+        [JSON.stringify(newItem)],
+      );
+    } else {
+      localStorage.setItem('listCart', JSON.stringify([{ name, price }]));
+    }
+  };
+
   render() {
     const { itens } = this.state;
+    const { itens: { title, price } } = this.state;
     return (
       <div>
         <p data-testid="product-detail-name">{itens.title}</p>
@@ -46,6 +60,15 @@ class Product extends Component {
         >
           Cart
 
+        </button>
+        <button
+          data-testid="product-detail-add-to-cart"
+          type="button"
+          onClick={ () => {
+            this.handleOnClick(title, price);
+          } }
+        >
+          adicionar ao carrinho
         </button>
       </div>
     );
