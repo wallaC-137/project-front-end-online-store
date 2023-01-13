@@ -23,13 +23,13 @@ class Product extends Component {
   handleOnClick = (name, price) => {
     if (localStorage.getItem('listCart')) {
       const oldItem = JSON.parse(localStorage.getItem('listCart'));
-      const newItem = [...oldItem, { name, price }];
+      const newItem = [...oldItem, { name, price, quantity: 1 }];
       localStorage.setItem(
         'listCart',
         [JSON.stringify(newItem)],
       );
     } else {
-      localStorage.setItem('listCart', JSON.stringify([{ name, price }]));
+      localStorage.setItem('listCart', JSON.stringify([{ name, price, quantity: 1 }]));
     }
   };
 
