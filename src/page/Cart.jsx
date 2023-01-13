@@ -5,7 +5,6 @@ export default class Cart extends Component {
   state = {
     listCart: [],
     cartVoid: true,
-    addItem: 0,
   };
 
   componentDidMount() {
@@ -16,7 +15,6 @@ export default class Cart extends Component {
     if (localStorage.getItem('listCart')) {
       const list = localStorage.getItem('listCart');
       const newList = JSON.parse(list);
-      console.log(newList);
       this.setState({
         listCart: [...newList],
         cartVoid: false,
@@ -34,18 +32,39 @@ export default class Cart extends Component {
     });
   };
 
-  removeItem = () => {
-
+  removeItem = ({ target: { id } }) => {
+    const list = localStorage.getItem('listCart');
+    const newList = JSON.parse(list);
+    const filterList = newList.map((product) => {
+      if (product.name === id && product.quantity > 1) {
+        product.quantity -= 1;
+      }
+      return product;
+    });
+    localStorage.setItem('listCart', JSON.stringify(filterList));
+    this.setState({
+      listCart: filterList,
+    });
   };
 
-  addItem = () => {
-
+  addItem = ({ target: { id } }) => {
+    const list = localStorage.getItem('listCart');
+    const newList = JSON.parse(list);
+    const filterList = newList.map((product) => {
+      if (product.name === id) {
+        product.quantity += 1;
+      }
+      return product;
+    });
+    localStorage.setItem('listCart', JSON.stringify(filterList));
+    this.setState({
+      listCart: filterList,
+    });
   };
 
   render() {
     // const { cartVoid } = this.props;
-    const { listCart, cartVoid, addItem } = this.state;
-    console.log(listCart);
+    const { listCart, cartVoid } = this.state;
     return (
       <div>
         {cartVoid && (
@@ -53,7 +72,7 @@ export default class Cart extends Component {
             Seu carrinho está vazio
           </span>
         )}
-        {listCart.map(({ name, price }) => (
+        {listCart.map(({ name, price, quantity }) => (
           <dir key={ name }>
             <button
               data-testid="remove-product"
@@ -69,20 +88,22 @@ export default class Cart extends Component {
               type="button"
               data-testid="product-increase-quantity"
               onClick={ this.addItem }
+              id={ name }
             >
               Adicionar
             </button>
-            <p>{`Quantidade ${addItem}`}</p>
+            <p data-testid="shopping-cart-product-quantity">{`Quantidade ${quantity}`}</p>
             <button
               type="button"
               data-testid="product-decrease-quantity"
-              onClick={ () => this.removeItem() }
+              onClick={ this.removeItem }
+              id={ name }
             >
               Remover
             </button>
           </dir>
         ))}
-        <p data-testid="shopping-cart-product-quantity">{listCart.length}</p>
+        <p>{listCart.length}</p>
       </div>
     );
   }
