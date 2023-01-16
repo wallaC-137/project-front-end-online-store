@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getProductById } from '../services/api';
+import styles from './Product.module.css';
 
 class Product extends Component {
   state = {
     itens: {},
+    img: '',
+    attributes: [],
+    price: '',
   };
 
   componentDidMount() {
@@ -14,8 +18,12 @@ class Product extends Component {
   showProducts = async () => {
     const { match: { params: { id } } } = this.props;
     const data = await getProductById(id);
+    console.log(data.pictures[1].secure_url);
     this.setState({
       itens: data,
+      img: data.pictures[1].secure_url,
+      attributes: [...data.attributes],
+      price: data.price,
     });
     console.log(data);
   };
@@ -34,42 +42,42 @@ class Product extends Component {
   };
 
   render() {
-    const { itens } = this.state;
-    const { itens: { title, price } } = this.state;
+    const { itens, img, attributes, price } = this.state;
+    const { itens: { title } } = this.state;
+    console.log(itens);
+    // console.log(itens.pictures[1].secure_url);
     return (
-      <div>
-        <p data-testid="product-detail-name">{itens.title}</p>
-        <img
-          data-testid="product-detail-image"
-          src={ itens.thumbnail }
-          alt="tchau"
-          srcSet=""
-        />
-        <p data-testid="product-detail-price">
-          Preço:
-          {' '}
-          {itens.price}
-        </p>
-        <button
-          type="button"
-          data-testid="shopping-cart-button"
-          onClick={ () => {
-            const { history: { push } } = this.props;
-            return push('/cart');
-          } }
-        >
-          Cart
-
-        </button>
-        <button
-          data-testid="product-detail-add-to-cart"
-          type="button"
-          onClick={ () => {
-            this.handleOnClick(title, price);
-          } }
-        >
-          adicionar ao carrinho
-        </button>
+      <div className={ styles.product }>
+        <div className={ styles.picture }>
+          <p data-testid="product-detail-name">{itens.title}</p>
+          <img
+            data-testid="product-detail-image"
+            src={ img }
+            alt="tchau"
+            srcSet=""
+          />
+        </div>
+        <div className={ styles.description }>
+          <ul>
+            {attributes.map(({ name }, index) => (<li key={ index }>{`- ${name}`}</li>))}
+          </ul>
+          <div className={ styles.price }>
+            <p data-testid="product-detail-price">
+              <span className={ styles.real }>R$:</span>
+              {' '}
+              {price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            </p>
+            <button
+              data-testid="product-detail-add-to-cart"
+              type="button"
+              onClick={ () => {
+                this.handleOnClick(title, price);
+              } }
+            >
+              adicionar ao carrinho
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

@@ -29,7 +29,7 @@ class Header extends Component {
 
           </button>
         </div>
-        <img src="logo.svg" alt="" />
+        <Link to="/"><img src="logo.svg" alt="" /></Link>
 
         <Link
           data-testid="shopping-cart-button"
