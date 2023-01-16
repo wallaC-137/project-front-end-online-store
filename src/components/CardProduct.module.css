@@ -1,13 +1,28 @@
 .maindiv {
-    margin: 15px;
+    margin: 20px;
     display: flex;
     padding: 5px;
     flex-direction: column;
     width: 200px;
+    height: 300px;
     background-color: white;
     border-radius: 5px;
-
 }
+
+.maindiv > a {
+    height: 250px;
+    text-decoration: none;
+}
+
+.price {
+    color: black;
+    font-weight: 600;
+}
+
+.real{
+    color: gray;
+}
+
 .maindiv > button {
     background: #31C28D;
     border:none;

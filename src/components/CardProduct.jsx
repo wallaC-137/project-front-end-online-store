@@ -25,7 +25,16 @@ export default class CardProduct extends Component {
         <Link to={ `/product/${id}` } data-testid="product-detail-link">
           <p>{name}</p>
           <img src={ picture } alt={ name } />
-          <p>{price}</p>
+          <p>
+            <span className={ styles.real }>R$:</span>
+            {' '}
+            <span
+              className={ styles.price }
+            >
+              {price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+
+            </span>
+          </p>
         </Link>
         <button
           data-testid="product-add-to-cart"

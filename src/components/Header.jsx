@@ -5,7 +5,7 @@ import styles from './Header.module.css';
 
 class Header extends Component {
   render() {
-    const { input, querybutton, search } = this.props;
+    const { input, queryButton, search } = this.props;
     return (
       <div className={ styles.maindiv }>
         <div className={ styles.divinput }>
@@ -14,11 +14,16 @@ class Header extends Component {
             type="text"
             value={ search }
             onChange={ input }
+            onKeyDown={ (e) => {
+              if (e.key === 'Enter') {
+                queryButton();
+              }
+            } }
           />
           <button
             type="button"
             data-testid="query-button"
-            onClick={ querybutton }
+            onClick={ queryButton }
           >
             <img src="lupa.svg" alt="" />
 

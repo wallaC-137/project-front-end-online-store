@@ -1,6 +1,5 @@
 .main {
     display: flex;
-    background-color: #19ffe0;
 }
 
 .div2 {
@@ -8,9 +7,11 @@
     flex-wrap: wrap;
     background-color: rgb(235, 232, 232);
     width: 100%;
+    padding: 10px;
+    justify-content: center;
 }
 
-span {    
+.main > span {    
     display: flex;
     align-self: center;
     margin: auto;
@@ -26,7 +27,5 @@ span {
     text-align: center;
     letter-spacing: 0.055em;
     text-transform: uppercase;
-
     color: #31C28D;
-
 }
