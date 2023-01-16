@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { getCategories, getItensFromCategories } from '../services/api';
 import CardProduct from './CardProduct';
+import styles from './Categories.module.css';
 
 class Categories extends Component {
   state = {
@@ -25,10 +26,11 @@ class Categories extends Component {
   render() {
     const { categories, itensCategory } = this.state;
     return (
-      <div>
+      <div className={ styles.maindiv }>
         { categories.map((category) => (
           <div key={ category.id }>
             <button
+              className={ styles.button }
               onClick={ this.handleClick }
               data-testid="category"
               type="button"

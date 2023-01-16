@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Categories from '../components/Categories';
 import CardProduct from '../components/CardProduct';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import Header from '../components/Header';
+import styles from './Home.module.css';
 
 export default class Home extends Component {
   state = {
@@ -13,73 +15,68 @@ export default class Home extends Component {
     apiEmpty: false,
   };
 
+  handleChange = ({ target: { value } }) => {
+    this.setState({
+      search: value,
+    });
+  };
+
+  queryApi = async () => {
+    const { search } = this.state;
+    const infoCard = await getProductsFromCategoryAndQuery(null, search);
+    if (infoCard.results.length === 0) {
+      this.setState({
+        apiEmpty: true,
+      });
+    } else {
+      this.setState({
+        productList: infoCard.results,
+        apiEmpty: false,
+      });
+    }
+  };
+
+  // cartButton = () => {
+  //   const { history: { push } } = this.props;
+  //   return push('/cart');
+  // };
+
   render() {
     const { search, searchVoid, productList, apiEmpty } = this.state;
 
     return (
       <div>
-        {searchVoid && (
-          <span data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </span>)}
-        <input
-          data-testid="query-input"
-          type="text"
-          value={ search }
-          onChange={ ({ target: { value } }) => {
-            this.setState({
-              search: value,
-            });
-          } }
+        <Header
+          input={ this.handleChange }
+          querybutton={ this.queryApi }
+          search={ search }
         />
-        <button
-          type="button"
-          data-testid="query-button"
-          onClick={ async () => {
-            const infoCard = await getProductsFromCategoryAndQuery(null, search);
-            if (infoCard.results.length === 0) {
-              this.setState({
-                apiEmpty: true,
-              });
-            } else {
-              this.setState({
-                productList: infoCard.results,
-                apiEmpty: false,
-              });
-            }
-          } }
-        >
-          Pesquisa
+        <main className={ styles.main }>
+          <Categories />
+          {(searchVoid && search === '') && (
+            <span data-testid="home-initial-message">
+              Digite algum termo de pesquisa ou escolha uma categoria.
+            </span>)}
 
-        </button>
-        <button
-          type="button"
-          data-testid="shopping-cart-button"
-          onClick={ () => {
-            const { history: { push } } = this.props;
-            return push('/cart');
-          } }
-        >
-          Cart
+          {apiEmpty ? <p>Nenhum produto foi encontrado</p> : (
+            <div className={ styles.div2 }>
+              {
+                productList.map((product, index) => (
+                  <CardProduct
+                    name={ product.title }
+                    price={ product.price }
+                    picture={ product.thumbnail }
+                    key={ index }
+                    id={ product.id }
+                  />
+                ))
+              }
 
-        </button>
-        {apiEmpty ? <p>Nenhum produto foi encontrado</p> : (productList
-          .map((product, index) => (
-            <CardProduct
-              name={ product.title }
-              price={ product.price }
-              picture={ product.thumbnail }
-              key={ index }
-              id={ product.id }
-            />
-          ))) }
+            </div>
+          )}
 
-        <Categories />
-
+        </main>
       </div>
-      // <ul>
-      //   <li><Link data-testid="shopping-cart-button" to="/cart">Cart</Link></li>
-      // </ul>
     );
   }
 }

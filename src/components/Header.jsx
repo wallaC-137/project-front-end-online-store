@@ -1,0 +1,51 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import styles from './Header.module.css';
+
+class Header extends Component {
+  render() {
+    const { input, querybutton, search } = this.props;
+    return (
+      <div className={ styles.maindiv }>
+        <div className={ styles.divinput }>
+          <input
+            data-testid="query-input"
+            type="text"
+            value={ search }
+            onChange={ input }
+          />
+          <button
+            type="button"
+            data-testid="query-button"
+            onClick={ querybutton }
+          >
+            <img src="lupa.svg" alt="" />
+
+          </button>
+        </div>
+        <img src="logo.svg" alt="" />
+
+        <Link
+          data-testid="shopping-cart-button"
+          to="/cart"
+        >
+          <img
+            className={ styles.cart }
+            src="cart.svg"
+            alt="cart"
+          />
+        </Link>
+
+      </div>
+    );
+  }
+}
+
+Header.propTypes = {
+  input: PropTypes.func,
+  querybutton: PropTypes.func,
+  search: PropTypes.string,
+}.isRequired;
+
+export default Header;

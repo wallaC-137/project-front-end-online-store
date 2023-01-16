@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import styles from './CardProduct.module.css';
 
 export default class CardProduct extends Component {
   handleOnClick = (name, price) => {
@@ -20,7 +21,7 @@ export default class CardProduct extends Component {
     const { name, picture, price, id } = this.props;
     return (
 
-      <div data-testid="product">
+      <div data-testid="product" className={ styles.maindiv }>
         <Link to={ `/product/${id}` } data-testid="product-detail-link">
           <p>{name}</p>
           <img src={ picture } alt={ name } />
@@ -33,7 +34,7 @@ export default class CardProduct extends Component {
             this.handleOnClick(name, price);
           } }
         >
-          adicionar ao carrinho
+          Adicionar ao carrinho
         </button>
       </div>
     );

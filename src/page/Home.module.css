@@ -1,0 +1,32 @@
+.main {
+    display: flex;
+    background-color: #19ffe0;
+}
+
+.div2 {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgb(235, 232, 232);
+    width: 100%;
+}
+
+span {    
+    display: flex;
+    align-self: center;
+    margin: auto;
+    margin-bottom: 550px;
+    width: 450px;
+    height: 68px;
+    font-size: 30px;
+    font-family: 'Epilogue';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 31px;
+    text-align: center;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+
+    color: #31C28D;
+
+}

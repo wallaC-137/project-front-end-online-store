@@ -1,0 +1,38 @@
+.maindiv{
+background-color: #003be5;
+width: 100vw;
+height: 7rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.divinput {
+margin-left: 20px;
+display: flex;
+align-items: center;
+border: 1px solid rgb(30, 30, 30)
+}
+
+.divinput > button {
+    background-color: white;
+    border: none;
+    height: 27px;
+}
+
+.maindiv > img {
+width: 267.27px;
+height: 90.63px;
+}
+
+.cart{
+width:40px;
+margin-right: 20px;
+}
+
+
+.maindiv input{
+    height: 25px;
+    background-color: white;
+    border: none;
+}

@@ -1,0 +1,17 @@
+.maindiv {
+    margin: 15px;
+    display: flex;
+    padding: 5px;
+    flex-direction: column;
+    width: 200px;
+    background-color: white;
+    border-radius: 5px;
+
+}
+.maindiv > button {
+    background: #31C28D;
+    border:none;
+    height: 38px;
+    color: white;
+    font-weight: 600;
+}
