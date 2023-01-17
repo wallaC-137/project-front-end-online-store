@@ -35,3 +35,8 @@ margin-right: 20px;
     background-color: white;
     border: none;
 }
+
+.maindiv input:focus {
+    box-shadow: 0 0 0 0;
+    outline: 0;
+}

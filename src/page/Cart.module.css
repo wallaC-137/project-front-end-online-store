@@ -1,0 +1,96 @@
+.containerCart {
+  display: flex;
+}
+.listItens {
+  padding: 20px;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0px 2px 14px 0px #0000007a;
+  margin: 20px;
+}
+
+.item {
+ width: 550px;
+ /* display: flex;
+ 
+ /* justify-content: space-evenly; */
+ display: grid;
+ align-items: center;
+grid-template-columns: 1fr 1fr 9rem 1fr 1fr 1fr 1fr;
+grid-gap: 10px;
+}
+
+.buttonRemover{
+  border: none;
+  padding: 10px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.buttonRemover:hover {
+  font-size: 16px;
+}
+
+.quantity {
+  display: flex;
+  border: none;
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+  /* padding: 10px; */
+  border-radius: 50%;
+  background-color: #B0B3BB;
+  align-items: center;
+  color: white;
+  font-weight: 500;
+  justify-content: center;
+}
+
+.button{
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  font-weight: 600;
+  color: #B0B3BB;
+}
+
+.price{
+  font-weight: 600;
+}
+
+.title{
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.total{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 84vh;
+  width: 60%;
+  border-radius: 6px;
+  box-shadow: 0px 2px 14px 0px #0000007a;
+}
+
+.totalTitle {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.totalPrice {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.totalButton {
+width: 244.65px;
+height: 38.63px;
+background: #31C28D;
+border: none;
+border-radius: 6px;
+color: white;
+font-weight: 600;
+
+}

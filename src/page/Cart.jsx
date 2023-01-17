@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from './Cart.module.css';
 // import PropTypes from 'prop-types';
 
 export default class Cart extends Component {
@@ -65,45 +66,70 @@ export default class Cart extends Component {
   render() {
     // const { cartVoid } = this.props;
     const { listCart, cartVoid } = this.state;
+    console.log(listCart);
     return (
-      <div>
+      <div className={ styles.containerCart }>
         {cartVoid && (
           <span data-testid="shopping-cart-empty-message">
             Seu carrinho está vazio
           </span>
         )}
-        {listCart.map(({ name, price, quantity }) => (
-          <dir key={ name }>
-            <button
-              data-testid="remove-product"
-              type="button"
-              onClick={ () => this.onClickRemove(name) }
-            >
-              Excluir
+        <div className={ styles.listItens }>
+          <p className={ styles.title }>Carrinho de Compras</p>
+          {listCart.map(({ name, price, quantity, picture }) => (
+            <>
+              <hr />
+              <dir key={ name } className={ styles.item }>
+                <button
+                  className={ styles.buttonRemover }
+                  data-testid="remove-product"
+                  type="button"
+                  onClick={ () => this.onClickRemove(name) }
+                >
+                  X
+                </button>
+                <img src={ picture } alt={ name } />
+                <p data-testid="shopping-cart-product-name">{name}</p>
+                <p className={ styles.price }>{price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                <button
+                  className={ styles.button }
+                  type="button"
+                  data-testid="product-increase-quantity"
+                  onClick={ this.addItem }
+                  id={ name }
+                >
+                  +
+                </button>
+                <p
+                  data-testid="shopping-cart-product-quantity"
+                  className={ styles.quantity }
+                >
+                  {quantity}
 
-            </button>
-            <p data-testid="shopping-cart-product-name">{name}</p>
-            <p>{price}</p>
-            <button
-              type="button"
-              data-testid="product-increase-quantity"
-              onClick={ this.addItem }
-              id={ name }
-            >
-              Adicionar
-            </button>
-            <p data-testid="shopping-cart-product-quantity">{`Quantidade ${quantity}`}</p>
-            <button
-              type="button"
-              data-testid="product-decrease-quantity"
-              onClick={ this.removeItem }
-              id={ name }
-            >
-              Remover
-            </button>
-          </dir>
-        ))}
-        <p>{listCart.length}</p>
+                </p>
+                <button
+                  className={ styles.button }
+                  type="button"
+                  data-testid="product-decrease-quantity"
+                  onClick={ this.removeItem }
+                  id={ name }
+                >
+                  -
+                </button>
+              </dir>
+            </>
+          ))}
+        </div>
+        <div className={ styles.total }>
+          <p className={ styles.totalTitle }>Valor total da compra</p>
+          <p className={ styles.totalPrice }>
+            {listCart.reduce((acc, cr) => {
+              acc += cr.price;
+              return acc;
+            }, 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+          </p>
+          <button className={ styles.totalButton } type="button">Finalizar compra</button>
+        </div>
       </div>
     );
   }

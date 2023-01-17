@@ -4,16 +4,16 @@ import { Link } from 'react-router-dom';
 import styles from './CardProduct.module.css';
 
 export default class CardProduct extends Component {
-  handleOnClick = (name, price) => {
+  handleOnClick = (name, price, picture) => {
     if (localStorage.getItem('listCart')) {
       const oldItem = JSON.parse(localStorage.getItem('listCart'));
-      const newItem = [...oldItem, { name, price, quantity: 1 }];
+      const newItem = [...oldItem, { name, price, picture, quantity: 1 }];
       localStorage.setItem(
         'listCart',
         [JSON.stringify(newItem)],
       );
     } else {
-      localStorage.setItem('listCart', JSON.stringify([{ name, price, quantity: 1 }]));
+      localStorage.setItem('listCart', JSON.stringify([{ name, price, picture, quantity: 1 }]));
     }
   };
 
@@ -40,7 +40,7 @@ export default class CardProduct extends Component {
           data-testid="product-add-to-cart"
           type="button"
           onClick={ () => {
-            this.handleOnClick(name, price);
+            this.handleOnClick(name, price, picture);
           } }
         >
           Adicionar ao carrinho

@@ -9,6 +9,7 @@ class Product extends Component {
     img: '',
     attributes: [],
     price: '',
+    thumbnail: '',
   };
 
   componentDidMount() {
@@ -18,12 +19,13 @@ class Product extends Component {
   showProducts = async () => {
     const { match: { params: { id } } } = this.props;
     const data = await getProductById(id);
-    console.log(data.pictures[1].secure_url);
+    console.log(data.pictures[0].secure_url);
     this.setState({
       itens: data,
-      img: data.pictures[1].secure_url,
+      img: data.pictures[0].secure_url,
       attributes: [...data.attributes],
       price: data.price,
+      thumbnail: data.thumbnail,
     });
     console.log(data);
   };
@@ -31,18 +33,18 @@ class Product extends Component {
   handleOnClick = (name, price) => {
     if (localStorage.getItem('listCart')) {
       const oldItem = JSON.parse(localStorage.getItem('listCart'));
-      const newItem = [...oldItem, { name, price, quantity: 1 }];
+      const newItem = [...oldItem, { name, price, thumbnail, quantity: 1 }];
       localStorage.setItem(
         'listCart',
         [JSON.stringify(newItem)],
       );
     } else {
-      localStorage.setItem('listCart', JSON.stringify([{ name, price, quantity: 1 }]));
+      localStorage.setItem('listCart', JSON.stringify([{ name, price, thumbnail, quantity: 1 }]));
     }
   };
 
   render() {
-    const { itens, img, attributes, price } = this.state;
+    const { itens, img, attributes, price, thumbnail } = this.state;
     const { itens: { title } } = this.state;
     console.log(itens);
     // console.log(itens.pictures[1].secure_url);
@@ -71,7 +73,7 @@ class Product extends Component {
               data-testid="product-detail-add-to-cart"
               type="button"
               onClick={ () => {
-                this.handleOnClick(title, price);
+                this.handleOnClick(title, price, thumbnail);
               } }
             >
               adicionar ao carrinho

@@ -72,7 +72,7 @@ export default class Home extends Component {
           search={ search }
         /> */}
         <main className={ styles.main }>
-          <Categories />
+          <Categories generatorProduct={ this.handleGeneratorProduct } />
           {(searchVoid) ? (
             <span data-testid="home-initial-message">
               Digite algum termo de pesquisa ou escolha uma categoria.
